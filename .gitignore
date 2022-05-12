@@ -1,6 +1,7 @@
 Thumbs.db*
 .DS_Store
 HELP.md
+node_modules
 .gradle
 build/
 data/
