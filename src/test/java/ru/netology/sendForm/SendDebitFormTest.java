@@ -96,4 +96,21 @@ public class SendDebitFormTest {
         Page.notificationTitleOk.shouldBe(visible).shouldHave(text("Успешно"));
         Page.notificationContentOk.shouldBe(visible).shouldHave(text("Операция одобрена Банком."));
     }
+
+    @Test
+    public void shouldCheckingMessagesErrors() {
+        Page.buttonNext.click();
+        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
+        Page.fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
+        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
+        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
+        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+        Page.buttonNext.click();
+        Page.notificationTitleOk.should(appear, Duration.ofSeconds(15));
+        Page.notificationTitleOk.shouldBe(visible).shouldHave(text("Успешно"));
+        Page.notificationContentOk.shouldBe(visible).shouldHave(text("Операция одобрена Банком."));
+        Page.invalidCardNumber.shouldBe(visible).shouldHave(text("Неверный формат"));
+        Page.invalidCardHolder.shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
+        Page.invalidCvC.shouldBe(visible).shouldHave(text("Неверный формат"));
+    }
 }

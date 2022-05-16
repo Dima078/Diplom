@@ -6,8 +6,12 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.netology.data.DataHelper;
 import ru.netology.data.Page;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -56,5 +60,18 @@ public class ValidationCardHolderTest {
         Page.fieldCardHolder.setValue("!@#$%^&*()_+/-,. `~");
         String actualContentsField = Page.fieldCardHolder.getValue();
         assertEquals("", actualContentsField);
+    }
+
+    @Test
+    public void shouldSendFormWithInvalidName() {
+        Page.fieldCardHolder.setValue("DIMADIMOV");
+        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
+        Page.fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
+        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
+        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+        Page.buttonNext.click();
+        Page.notificationTitleError.should(appear, Duration.ofSeconds(15));
+        Page.notificationTitleError.shouldBe(visible).shouldHave(text("Ошибка"));
+        Page.notificationContentError.shouldBe(visible).shouldHave(text("Ошибка! Банк отказал в проведении операции."));
     }
 }
