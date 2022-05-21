@@ -2,6 +2,7 @@ version: '3.7'
 services:
   mysql:
     image: mysql:8.0
+    container_name: mysql
     ports:
       - '3306:3306'
     volumes:
@@ -11,3 +12,20 @@ services:
       - MYSQL_DATABASE=app
       - MYSQL_USER=dima
       - MYSQL_PASSWORD=pass
+  postgresdb:
+    image: postgres:12-alpine
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data:/var/lib/postgresql
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=dima
+      - POSTGRES_PASSWORD=pass
+  nodejs:
+    image: nodejs
+    container_name: nodejs
+    build: ./gate-simulator
+    ports:
+      - "9999:9999"

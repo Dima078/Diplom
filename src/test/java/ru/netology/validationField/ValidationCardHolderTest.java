@@ -7,11 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.data.Page;
+import ru.netology.pageObjects.Page;
 
-import java.time.Duration;
-
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -70,8 +67,6 @@ public class ValidationCardHolderTest {
         Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
         Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
         Page.buttonNext.click();
-        Page.notificationTitleError.should(appear, Duration.ofSeconds(15));
-        Page.notificationTitleError.shouldBe(visible).shouldHave(text("Ошибка"));
-        Page.notificationContentError.shouldBe(visible).shouldHave(text("Ошибка! Банк отказал в проведении операции."));
+        Page.checkCardHolderFormat();
     }
 }

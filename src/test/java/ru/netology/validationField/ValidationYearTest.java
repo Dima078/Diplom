@@ -7,11 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.data.Page;
+import ru.netology.pageObjects.Page;
 
-import java.time.Duration;
-
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -76,6 +73,17 @@ public class ValidationYearTest {
         Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
         Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
         Page.buttonNext.click();
-        Page.invalidYear.shouldBe(visible).shouldHave(text("Неверный формат"));
+        Page.checkYear();
+    }
+
+    @Test
+    public void shouldSendFormWithYearExpiredPeriod() {
+        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
+        Page.fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
+        Page.fieldYear.setValue("12");
+        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
+        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+        Page.buttonNext.click();
+        Page.checkYearExpiredPeriod();
     }
 }

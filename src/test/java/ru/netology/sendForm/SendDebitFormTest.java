@@ -7,11 +7,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.data.Page;
+import ru.netology.data.Database;
+import ru.netology.pageObjects.Page;
 
-import java.time.Duration;
-
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.open;
 
 public class SendDebitFormTest {
@@ -40,9 +38,8 @@ public class SendDebitFormTest {
         Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
         Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
         Page.buttonNext.click();
-        Page.notificationTitleOk.should(appear, Duration.ofSeconds(15));
-        Page.notificationTitleOk.shouldBe(visible).shouldHave(text("Успешно"));
-        Page.notificationContentOk.shouldBe(visible).shouldHave(text("Операция одобрена Банком."));
+        Page.checkNotificationTitleOk();
+        Database.checkApprovedBuy();
     }
 
     @Test
@@ -53,9 +50,8 @@ public class SendDebitFormTest {
         Page.fieldCardHolder.setValue(DataHelper.getDeclinedCard().getCardHolder());
         Page.fieldCvC.setValue(DataHelper.getDeclinedCard().getCvcCard());
         Page.buttonNext.click();
-        Page.notificationTitleError.should(appear, Duration.ofSeconds(15));
-        Page.notificationTitleError.shouldBe(visible).shouldHave(text("Ошибка"));
-        Page.notificationContentError.shouldBe(visible).shouldHave(text("Ошибка! Банк отказал в проведении операции."));
+        Page.checkNotificationTitleError();
+        Database.checkDeclinedBuy();
     }
 
     @Test
@@ -66,19 +62,17 @@ public class SendDebitFormTest {
         Page.fieldCardHolder.setValue(DataHelper.getNotTestCard().getCardHolder());
         Page.fieldCvC.setValue(DataHelper.getNotTestCard().getCvcCard());
         Page.buttonNext.click();
-        Page.notificationTitleError.should(appear, Duration.ofSeconds(15));
-        Page.notificationTitleError.shouldBe(visible).shouldHave(text("Ошибка"));
-        Page.notificationContentError.shouldBe(visible).shouldHave(text("Ошибка! Банк отказал в проведении операции."));
+        Page.checkNotificationTitleError();
     }
 
     @Test
     public void shouldSendEmptyForm() {
         Page.buttonNext.click();
-        Page.invalidCardNumber.shouldBe(visible).shouldHave(text("Неверный формат"));
-        Page.invalidMonth.shouldBe(visible).shouldHave(text("Неверный формат"));
-        Page.invalidYear.shouldBe(visible).shouldHave(text("Неверный формат"));
-        Page.invalidCardHolder.shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
-        Page.invalidCvC.shouldBe(visible).shouldHave(text("Неверный формат"));
+        Page.checkCardNumber();
+        Page.checkMonthFormat();
+        Page.checkYear();
+        Page.checkCardHolderEmpty();
+        Page.checkCvC();
     }
 
     @Test
@@ -89,12 +83,9 @@ public class SendDebitFormTest {
         Page.fieldCardHolder.setValue(DataHelper.getNotTestCard().getCardHolder());
         Page.fieldCvC.setValue(DataHelper.getNotTestCard().getCvcCard());
         Page.buttonNext.click();
-        Page.notificationTitleError.should(appear, Duration.ofSeconds(15));
-        Page.notificationTitleError.shouldBe(visible).shouldHave(text("Ошибка"));
-        Page.notificationContentError.shouldBe(visible).shouldHave(text("Ошибка! Банк отказал в проведении операции."));
+        Page.checkNotificationTitleError();
         Page.closeNotificationContentError.click();
-        Page.notificationTitleOk.shouldBe(visible).shouldHave(text("Успешно"));
-        Page.notificationContentOk.shouldBe(visible).shouldHave(text("Операция одобрена Банком."));
+        Page.checkNotificationTitleOk();
     }
 
     @Test
@@ -106,11 +97,9 @@ public class SendDebitFormTest {
         Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
         Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
         Page.buttonNext.click();
-        Page.notificationTitleOk.should(appear, Duration.ofSeconds(15));
-        Page.notificationTitleOk.shouldBe(visible).shouldHave(text("Успешно"));
-        Page.notificationContentOk.shouldBe(visible).shouldHave(text("Операция одобрена Банком."));
-        Page.invalidCardNumber.shouldBe(visible).shouldHave(text("Неверный формат"));
-        Page.invalidCardHolder.shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
-        Page.invalidCvC.shouldBe(visible).shouldHave(text("Неверный формат"));
+        Page.checkNotificationTitleOk();
+        Page.checkCardNumber();
+        Page.checkCardHolderEmpty();
+        Page.checkCvC();
     }
 }

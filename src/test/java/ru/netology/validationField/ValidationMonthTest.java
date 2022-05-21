@@ -7,10 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.data.Page;
+import ru.netology.pageObjects.Page;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -75,6 +73,28 @@ public class ValidationMonthTest {
         Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
         Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
         Page.buttonNext.click();
-        Page.invalidMonth.shouldBe(visible).shouldHave(text("Неверный формат"));
+        Page.checkMonthFormat();
+    }
+
+    @Test
+    public void shouldSendFormWith00() {
+        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
+        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
+        Page.fieldMonth.setValue("00");
+        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
+        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+        Page.buttonNext.click();
+        Page.checkMonthFormat();
+    }
+
+    @Test
+    public void shouldSendFormWithInvalidMonth() {
+        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
+        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
+        Page.fieldMonth.setValue("13");
+        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
+        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+        Page.buttonNext.click();
+        Page.checkMonthInvalidPeriod();
     }
 }

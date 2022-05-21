@@ -7,10 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.data.Page;
+import ru.netology.pageObjects.Page;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -74,6 +72,6 @@ public class ValidationCvcTest {
         Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
         Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
         Page.buttonNext.click();
-        Page.invalidCvC.shouldBe(visible).shouldHave(text("Неверный формат"));
+        Page.checkCvC();
     }
 }
