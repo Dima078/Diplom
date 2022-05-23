@@ -19,7 +19,7 @@ public class Database {
 
     @SneakyThrows
     private String getDebitStatus() {
-        var statusQuery = "SELECT * FROM payment_entity;";
+        var statusQuery = "SELECT * FROM payment_entity ORDER BY created DESC;";
         try (var statement = connection().createStatement()) {
             try (var rs = statement.executeQuery(statusQuery)) {
                 rs.next();
@@ -30,7 +30,7 @@ public class Database {
 
     @SneakyThrows
     private String getCreditStatus() {
-        var statusQuery = "SELECT * FROM credit_request_entity;";
+        var statusQuery = "SELECT * FROM credit_request_entity ORDER BY created DESC;";
         try (var statement = connection().createStatement()) {
             try (var rs = statement.executeQuery(statusQuery)) {
                 rs.next();

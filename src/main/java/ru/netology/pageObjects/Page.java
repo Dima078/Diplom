@@ -71,4 +71,9 @@ public class Page {
         notificationTitleError.shouldBe(visible).shouldHave(text("Ошибка"));
         notificationContentError.shouldBe(visible).shouldHave(text("Ошибка! Банк отказал в проведении операции."));
     }
+
+    public static void checkTime() {
+        notificationTitleOk.should(appear, Duration.ofSeconds(15));
+    }
+
 }
