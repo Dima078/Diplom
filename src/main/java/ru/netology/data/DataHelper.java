@@ -42,4 +42,24 @@ public class DataHelper {
                 "123"
         );
     }
+
+    public static String latinLetters(){
+        String latin = "DIMA DIMOV";
+        return latin;
+    }
+
+    public static String cyrillicLetters(){
+        String cyrillic = "дима димов";
+        return cyrillic;
+    }
+
+    public static String numbers(){
+        String numbers = "231324";
+        return numbers;
+    }
+
+    public static String symbols(){
+        String symbols = "!@#$%^&*()_+/-,. `~";
+        return symbols;
+    }
 }

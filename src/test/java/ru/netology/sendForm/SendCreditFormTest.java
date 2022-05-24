@@ -6,9 +6,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.data.DataHelper;
 import ru.netology.data.Database;
-import ru.netology.pageObjects.Page;
+import ru.netology.pageObjects.HeaderPage;
+import ru.netology.pageObjects.PayPage;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -27,64 +27,44 @@ public class SendCreditFormTest {
     @BeforeEach
     public void openBrowser() {
         open("http://localhost:8080/");
-        Page.buttonCredit.click();
+        HeaderPage.clickCredit();
     }
 
     @Test
     public void shouldBuyApprovedCard() {
-        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        Page.fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
-        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        Page.buttonNext.click();
-        Page.checkNotificationTitleOk();
+        PayPage.getApprovedCard();
+        PayPage.checkNotificationTitleOk();
         Database.checkApprovedBuyTourCredit();
     }
 
     @Test
     public void shouldBuyDeclinedCard() {
-        Page.fieldCardNumber.setValue(DataHelper.getDeclinedCard().getNumberCard());
-        Page.fieldMonth.setValue(DataHelper.getDeclinedCard().getMonthCard());
-        Page.fieldYear.setValue(DataHelper.getDeclinedCard().getYearCard());
-        Page.fieldCardHolder.setValue(DataHelper.getDeclinedCard().getCardHolder());
-        Page.fieldCvC.setValue(DataHelper.getDeclinedCard().getCvcCard());
-        Page.buttonNext.click();
-        Page.checkNotificationTitleError();
+        PayPage.getDeclinedCard();
+        PayPage.checkNotificationTitleError();
         Database.checkDeclinedBuyTourCredit();
     }
 
     @Test
     public void shouldBuyNotTestCard() {
-        Page.fieldCardNumber.setValue(DataHelper.getNotTestCard().getNumberCard());
-        Page.fieldMonth.setValue(DataHelper.getNotTestCard().getMonthCard());
-        Page.fieldYear.setValue(DataHelper.getNotTestCard().getYearCard());
-        Page.fieldCardHolder.setValue(DataHelper.getNotTestCard().getCardHolder());
-        Page.fieldCvC.setValue(DataHelper.getNotTestCard().getCvcCard());
-        Page.buttonNext.click();
-        Page.checkNotificationTitleError();
+        PayPage.getNotTestCard();
+        PayPage.checkNotificationTitleError();
     }
 
     @Test
     public void shouldSendEmptyForm() {
-        Page.buttonNext.click();
-        Page.checkCardNumber();
-        Page.checkMonthFormat();
-        Page.checkYear();
-        Page.checkCardHolderEmpty();
-        Page.checkCvC();
+        PayPage.clickNext();
+        PayPage.checkCardNumber();
+        PayPage.checkMonthFormat();
+        PayPage.checkYear();
+        PayPage.checkCardHolderEmpty();
+        PayPage.checkCvC();
     }
 
     @Test
     public void shouldClosedNotificationContentError() {
-        Page.fieldCardNumber.setValue(DataHelper.getNotTestCard().getNumberCard());
-        Page.fieldMonth.setValue(DataHelper.getNotTestCard().getMonthCard());
-        Page.fieldYear.setValue(DataHelper.getNotTestCard().getYearCard());
-        Page.fieldCardHolder.setValue(DataHelper.getNotTestCard().getCardHolder());
-        Page.fieldCvC.setValue(DataHelper.getNotTestCard().getCvcCard());
-        Page.buttonNext.click();
-        Page.checkNotificationTitleError();
-        Page.closeNotificationContentError.click();
-        Page.checkNotificationTitleOk();
+        PayPage.getNotTestCard();
+        PayPage.checkNotificationTitleError();
+        PayPage.closeNotificationContentError();
+        PayPage.checkNotificationTitleOk();
     }
 }

@@ -7,14 +7,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.pageObjects.Page;
+import ru.netology.pageObjects.PayPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidationMonthTest {
 
-    @BeforeAll
+    /*@BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
@@ -27,74 +27,74 @@ public class ValidationMonthTest {
     @BeforeEach
     public void openBrowser() {
         open("http://localhost:8080/");
-        Page.buttonDebit.click();
+        PayPage.buttonDebit.click();
     }
 
     @Test
     public void shouldEnterValidMonth() {
-        Page.fieldMonth.setValue("05");
-        String actualContentsField = Page.fieldMonth.getValue();
+        PayPage.fieldMonth.setValue("05");
+        String actualContentsField = PayPage.fieldMonth.getValue();
         assertEquals("05", actualContentsField);
     }
 
     @Test
     public void shouldEnterMore2Numbers() {
-        Page.fieldMonth.setValue("1234");
-        String actualContentsField = Page.fieldMonth.getValue();
+        PayPage.fieldMonth.setValue("1234");
+        String actualContentsField = PayPage.fieldMonth.getValue();
         assertEquals("12", actualContentsField);
     }
 
     @Test
     public void shouldEnterLatinh() {
-        Page.fieldMonth.setValue("qwert");
-        String actualContentsField = Page.fieldMonth.getValue();
+        PayPage.fieldMonth.setValue("qwert");
+        String actualContentsField = PayPage.fieldMonth.getValue();
         assertEquals("", actualContentsField);
     }
 
     @Test
     public void shouldEnterCyrillic() {
-        Page.fieldMonth.setValue("йцуе");
-        String actualContentsField = Page.fieldMonth.getValue();
+        PayPage.fieldMonth.setValue("йцуе");
+        String actualContentsField = PayPage.fieldMonth.getValue();
         assertEquals("", actualContentsField);
     }
 
     @Test
     public void shouldEnterSymbols() {
-        Page.fieldMonth.setValue("!@#$%^&*()_+/-,. `~");
-        String actualContentsField = Page.fieldMonth.getValue();
+        PayPage.fieldMonth.setValue("!@#$%^&*()_+/-,. `~");
+        String actualContentsField = PayPage.fieldMonth.getValue();
         assertEquals("", actualContentsField);
     }
 
     @Test
     public void shouldSendFormWith1Number() {
-        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        Page.fieldMonth.setValue("0");
-        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        Page.buttonNext.click();
-        Page.checkMonthFormat();
+        PayPage.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
+        PayPage.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
+        PayPage.fieldMonth.setValue("0");
+        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
+        PayPage.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+        PayPage.buttonNext.click();
+        PayPage.checkMonthFormat();
     }
 
     @Test
     public void shouldSendFormWith00() {
-        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        Page.fieldMonth.setValue("00");
-        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        Page.buttonNext.click();
-        Page.checkMonthFormat();
+        PayPage.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
+        PayPage.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
+        PayPage.fieldMonth.setValue("00");
+        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
+        PayPage.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+        PayPage.buttonNext.click();
+        PayPage.checkMonthFormat();
     }
 
     @Test
     public void shouldSendFormWithInvalidMonth() {
-        Page.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        Page.fieldMonth.setValue("13");
-        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        Page.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        Page.buttonNext.click();
-        Page.checkMonthInvalidPeriod();
-    }
+        PayPage.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
+        PayPage.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
+        PayPage.fieldMonth.setValue("13");
+        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
+        PayPage.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+        PayPage.buttonNext.click();
+        PayPage.checkMonthInvalidPeriod();
+    }*/
 }

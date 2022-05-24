@@ -7,14 +7,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.pageObjects.Page;
+import ru.netology.pageObjects.PayPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidationCvcTest {
 
-    @BeforeAll
+    /*@BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
@@ -27,51 +27,51 @@ public class ValidationCvcTest {
     @BeforeEach
     public void openBrowser() {
         open("http://localhost:8080/");
-        Page.buttonDebit.click();
+        PayPage.buttonDebit.click();
     }
 
     @Test
     public void shouldEnterValidCvC() {
-        Page.fieldCvC.setValue("123");
-        String actualContentsField = Page.fieldCvC.getValue();
+        PayPage.fieldCvC.setValue("123");
+        String actualContentsField = PayPage.fieldCvC.getValue();
         assertEquals("123", actualContentsField);
     }
 
     @Test
     public void shouldEnterMore3Numbers() {
-        Page.fieldCvC.setValue("123456");
-        String actualContentsField = Page.fieldCvC.getValue();
+        PayPage.fieldCvC.setValue("123456");
+        String actualContentsField = PayPage.fieldCvC.getValue();
         assertEquals("123", actualContentsField);
     }
 
     @Test
     public void shouldEnterLatin() {
-        Page.fieldCvC.setValue("qwer");
-        String actualContentsField = Page.fieldCvC.getValue();
+        PayPage.fieldCvC.setValue("qwer");
+        String actualContentsField = PayPage.fieldCvC.getValue();
         assertEquals("", actualContentsField);
     }
 
     @Test
     public void shouldEnterCyrillic() {
-        Page.fieldCvC.setValue("номер");
-        String actualContentsField = Page.fieldCvC.getValue();
+        PayPage.fieldCvC.setValue("номер");
+        String actualContentsField = PayPage.fieldCvC.getValue();
         assertEquals("", actualContentsField);
     }
 
     @Test
     public void shouldEnterSymbols() {
-        Page.fieldCvC.setValue("!@#$%^&*()_+/-,. `~");
-        String actualContentsField = Page.fieldCvC.getValue();
+        PayPage.fieldCvC.setValue("!@#$%^&*()_+/-,. `~");
+        String actualContentsField = PayPage.fieldCvC.getValue();
         assertEquals("", actualContentsField);
     }
 
     @Test
     public void shouldSendFormWith2Numbers() {
-        Page.fieldCvC.setValue("12");
-        Page.fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
-        Page.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        Page.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        Page.buttonNext.click();
-        Page.checkCvC();
-    }
+        PayPage.fieldCvC.setValue("12");
+        PayPage.fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
+        PayPage.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
+        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
+        PayPage.buttonNext.click();
+        PayPage.checkCvC();
+    }*/
 }
