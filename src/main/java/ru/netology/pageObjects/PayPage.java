@@ -3,8 +3,6 @@ package ru.netology.pageObjects;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.Keys;
-import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
@@ -72,45 +70,22 @@ public class PayPage {
         notificationContentError.shouldBe(visible).shouldHave(text("Ошибка! Банк отказал в проведении операции."));
     }
 
-    public static PayPage getApprovedCard() {
-        fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
-        fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
+    public static PayPage emptyForm(String numberCard, String monthCard, String yearCard, String cardHolder, String cvcCard) {
+        fieldCardNumber.setValue(numberCard);
+        fieldMonth.setValue(monthCard);
+        fieldYear.setValue(yearCard);
+        fieldCardHolder.setValue(cardHolder);
+        fieldCvC.setValue(cvcCard);
         return new PayPage();
     }
 
-    public static PayPage getDeclinedCard() {
-        fieldCardNumber.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        fieldCardNumber.setValue(DataHelper.getDeclinedNumber());
-        return new PayPage();
-    }
-
-    public static PayPage getNotTestCard() {
-        fieldCardNumber.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        fieldCardNumber.setValue(DataHelper.getNotTestCardNumber());
-        return new PayPage();
-    }
-
-    public static PayPage clickNext() {
+    public static PayPage clickButtonNext() {
         buttonNext.click();
         return new PayPage();
     }
 
-    public static PayPage closeNotificationContentError() {
+    public static PayPage clickcloseNotificationContentError() {
         closeNotificationContentError.click();
-        return new PayPage();
-    }
-
-    public static PayPage setLatinLetters() {
-        fieldCardHolder.setValue(DataHelper.latinLetters());
-        return new PayPage();
-    }
-
-    public static PayPage setCyrilicLetters() {
-        fieldCardHolder.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        fieldCardHolder.setValue(DataHelper.cyrillicLetters());
         return new PayPage();
     }
 }

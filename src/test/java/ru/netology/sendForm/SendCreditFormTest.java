@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.netology.data.DataHelper;
 import ru.netology.data.Database;
 import ru.netology.pageObjects.HeaderPage;
 import ru.netology.pageObjects.PayPage;
@@ -32,32 +33,42 @@ public class SendCreditFormTest {
 
     @Test
     public void shouldBuyApprovedCard() {
-        PayPage.getApprovedCard();
-        PayPage.clickNext();
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkNotificationTitleOk();
         Database.checkApprovedBuyTourCredit();
     }
 
     @Test
     public void shouldBuyDeclinedCard() {
-        PayPage.getApprovedCard();
-        PayPage.getDeclinedCard();
-        PayPage.clickNext();
+        PayPage.emptyForm(DataHelper.getDeclinedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkNotificationTitleError();
         Database.checkDeclinedBuyTourCredit();
     }
 
     @Test
     public void shouldBuyNotTestCard() {
-        PayPage.getApprovedCard();
-        PayPage.getNotTestCard();
-        PayPage.clickNext();
+        PayPage.emptyForm(DataHelper.getNotTestCardNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkNotificationTitleError();
     }
 
     @Test
     public void shouldSendEmptyForm() {
-        PayPage.clickNext();
+        PayPage.clickButtonNext();
         PayPage.checkCardNumber();
         PayPage.checkMonthFormat();
         PayPage.checkYear();

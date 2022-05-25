@@ -7,14 +7,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.data.Database;
 import ru.netology.pageObjects.HeaderPage;
 import ru.netology.pageObjects.PayPage;
 
-import java.util.logging.Handler;
-
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidationCardHolderTest {
 
@@ -36,30 +32,56 @@ public class ValidationCardHolderTest {
 
     @Test
     public void shouldEnterLatinName() {
-        PayPage.getApprovedCard();
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkNotificationTitleOk();
-        Database.checkApprovedBuy();
     }
 
     @Test
     public void shouldEnterCyrillicName() {
-        PayPage.getApprovedCard();
-        PayPage.setCyrilicLetters();
-        PayPage.clickNext();
-        PayPage.checkNotificationTitleError();
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidYear(),
+                DataHelper.cyrillicLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkCardHolderFormat();
     }
 
-    /*@Test
+    @Test
     public void shouldEnterNumbers() {
-        PayPage.fieldCardHolder.setValue("123456789");
-        String actualContentsField = PayPage.fieldCardHolder.getValue();
-        assertEquals("", actualContentsField);
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidYear(),
+                DataHelper.numbers(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkCardHolderFormat();
     }
 
     @Test
     public void shouldEnterSymbols() {
-        PayPage.fieldCardHolder.setValue("!@#$%^&*()_+/-,. `~");
-        String actualContentsField = PayPage.fieldCardHolder.getValue();
-        assertEquals("", actualContentsField);
-    }*/
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidYear(),
+                DataHelper.symbols(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkCardHolderFormat();
+    }
+
+    @Test
+    public void shouldEmptyField() {
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidYear(),
+                DataHelper.empty(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkCardHolderEmpty();
+    }
 }

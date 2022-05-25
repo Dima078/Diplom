@@ -7,14 +7,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
+import ru.netology.pageObjects.HeaderPage;
 import ru.netology.pageObjects.PayPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidationMonthTest {
 
-    /*@BeforeAll
+    @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
@@ -27,74 +27,72 @@ public class ValidationMonthTest {
     @BeforeEach
     public void openBrowser() {
         open("http://localhost:8080/");
-        PayPage.buttonDebit.click();
+        HeaderPage.clickCredit();
     }
 
     @Test
-    public void shouldEnterValidMonth() {
-        PayPage.fieldMonth.setValue("05");
-        String actualContentsField = PayPage.fieldMonth.getValue();
-        assertEquals("05", actualContentsField);
-    }
-
-    @Test
-    public void shouldEnterMore2Numbers() {
-        PayPage.fieldMonth.setValue("1234");
-        String actualContentsField = PayPage.fieldMonth.getValue();
-        assertEquals("12", actualContentsField);
-    }
-
-    @Test
-    public void shouldEnterLatinh() {
-        PayPage.fieldMonth.setValue("qwert");
-        String actualContentsField = PayPage.fieldMonth.getValue();
-        assertEquals("", actualContentsField);
+    public void shouldEnterLatin() {
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkMonthFormat();
     }
 
     @Test
     public void shouldEnterCyrillic() {
-        PayPage.fieldMonth.setValue("йцуе");
-        String actualContentsField = PayPage.fieldMonth.getValue();
-        assertEquals("", actualContentsField);
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.cyrillicLetters(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkMonthFormat();
     }
 
     @Test
     public void shouldEnterSymbols() {
-        PayPage.fieldMonth.setValue("!@#$%^&*()_+/-,. `~");
-        String actualContentsField = PayPage.fieldMonth.getValue();
-        assertEquals("", actualContentsField);
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.symbols(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkMonthFormat();
     }
 
     @Test
     public void shouldSendFormWith1Number() {
-        PayPage.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        PayPage.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        PayPage.fieldMonth.setValue("0");
-        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        PayPage.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        PayPage.buttonNext.click();
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.with1Numbers(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkMonthFormat();
     }
 
     @Test
     public void shouldSendFormWith00() {
-        PayPage.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        PayPage.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        PayPage.fieldMonth.setValue("00");
-        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        PayPage.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        PayPage.buttonNext.click();
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getInvalidMonth00(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkMonthFormat();
     }
 
     @Test
     public void shouldSendFormWithInvalidMonth() {
-        PayPage.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        PayPage.fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
-        PayPage.fieldMonth.setValue("13");
-        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        PayPage.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        PayPage.buttonNext.click();
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidYear(),
+                DataHelper.getValidYear(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkMonthInvalidPeriod();
-    }*/
+    }
 }

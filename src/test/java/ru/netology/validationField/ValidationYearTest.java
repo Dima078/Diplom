@@ -7,14 +7,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
+import ru.netology.pageObjects.HeaderPage;
 import ru.netology.pageObjects.PayPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidationYearTest {
 
-    /*@BeforeAll
+    @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
@@ -27,63 +27,61 @@ public class ValidationYearTest {
     @BeforeEach
     public void openBrowser() {
         open("http://localhost:8080/");
-        PayPage.buttonDebit.click();
-    }
-
-    @Test
-    public void shouldEnterValidYear() {
-        PayPage.fieldYear.setValue("23");
-        String actualContentsField = PayPage.fieldYear.getValue();
-        assertEquals("23", actualContentsField);
-    }
-
-    @Test
-    public void shouldEnterMore2Numbers() {
-        PayPage.fieldYear.setValue("1234");
-        String actualContentsField = PayPage.fieldYear.getValue();
-        assertEquals("12", actualContentsField);
+        HeaderPage.clickCredit();
     }
 
     @Test
     public void shouldEnterLatin() {
-        PayPage.fieldYear.setValue("qwert");
-        String actualContentsField = PayPage.fieldYear.getValue();
-        assertEquals("", actualContentsField);
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.latinLetters(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkYear();
     }
 
     @Test
     public void shouldEnterCyrillic() {
-        PayPage.fieldYear.setValue("год");
-        String actualContentsField = PayPage.fieldYear.getValue();
-        assertEquals("", actualContentsField);
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.cyrillicLetters(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkYear();
     }
 
     @Test
     public void shouldEnterSymbols() {
-        PayPage.fieldYear.setValue("!@#$%^&*()_+/-,. `~");
-        String actualContentsField = PayPage.fieldYear.getValue();
-        assertEquals("", actualContentsField);
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.symbols(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
+        PayPage.checkYear();
     }
 
     @Test
     public void shouldSendFormWith1Number() {
-        PayPage.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        PayPage.fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
-        PayPage.fieldYear.setValue("2");
-        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        PayPage.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        PayPage.buttonNext.click();
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.with1Numbers(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkYear();
     }
 
     @Test
     public void shouldSendFormWithYearExpiredPeriod() {
-        PayPage.fieldCardNumber.setValue(DataHelper.getApprovedCard().getNumberCard());
-        PayPage.fieldMonth.setValue(DataHelper.getApprovedCard().getMonthCard());
-        PayPage.fieldYear.setValue("12");
-        PayPage.fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
-        PayPage.fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        PayPage.buttonNext.click();
+        PayPage.emptyForm(DataHelper.getApprovedNumber(),
+                DataHelper.getValidMonth(),
+                DataHelper.getValidMonth(),
+                DataHelper.latinLetters(),
+                DataHelper.getValidCvc());
+        PayPage.clickButtonNext();
         PayPage.checkYearExpiredPeriod();
-    }*/
+    }
 }
