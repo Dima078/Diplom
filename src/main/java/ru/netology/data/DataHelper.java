@@ -23,24 +23,14 @@ public class DataHelper {
         );
     }
 
-    public static Card getDeclinedCard() {
-        return new Card(
-                "4444444444444442",
-                "09",
-                "23",
-                "DIMA DIMOV",
-                "123"
-        );
+    public static String getDeclinedNumber(){
+        String numberCard = "4444444444444442";
+        return numberCard;
     }
 
-    public static Card getNotTestCard() {
-        return new Card(
-                "4444444444444444",
-                "09",
-                "23",
-                "DIMA DIMOV",
-                "123"
-        );
+    public static String getNotTestCardNumber() {
+        String numberCard = "4444444444444444";
+        return numberCard;
     }
 
     public static String latinLetters(){

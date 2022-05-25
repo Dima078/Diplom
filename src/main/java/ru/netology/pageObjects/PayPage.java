@@ -3,6 +3,7 @@ package ru.netology.pageObjects;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 import ru.netology.data.DataHelper;
 
 import java.time.Duration;
@@ -77,27 +78,18 @@ public class PayPage {
         fieldYear.setValue(DataHelper.getApprovedCard().getYearCard());
         fieldCardHolder.setValue(DataHelper.getApprovedCard().getCardHolder());
         fieldCvC.setValue(DataHelper.getApprovedCard().getCvcCard());
-        buttonNext.click();
         return new PayPage();
     }
 
     public static PayPage getDeclinedCard() {
-        fieldCardNumber.setValue(DataHelper.getDeclinedCard().getNumberCard());
-        fieldMonth.setValue(DataHelper.getDeclinedCard().getMonthCard());
-        fieldYear.setValue(DataHelper.getDeclinedCard().getYearCard());
-        fieldCardHolder.setValue(DataHelper.getDeclinedCard().getCardHolder());
-        fieldCvC.setValue(DataHelper.getDeclinedCard().getCvcCard());
-        buttonNext.click();
+        fieldCardNumber.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        fieldCardNumber.setValue(DataHelper.getDeclinedNumber());
         return new PayPage();
     }
 
     public static PayPage getNotTestCard() {
-        fieldCardNumber.setValue(DataHelper.getNotTestCard().getNumberCard());
-        fieldMonth.setValue(DataHelper.getNotTestCard().getMonthCard());
-        fieldYear.setValue(DataHelper.getNotTestCard().getYearCard());
-        fieldCardHolder.setValue(DataHelper.getNotTestCard().getCardHolder());
-        fieldCvC.setValue(DataHelper.getNotTestCard().getCvcCard());
-        PayPage.clickNext();
+        fieldCardNumber.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        fieldCardNumber.setValue(DataHelper.getNotTestCardNumber());
         return new PayPage();
     }
 
@@ -116,17 +108,9 @@ public class PayPage {
         return new PayPage();
     }
 
-    public static String getLatinLetters() {
-        String LatinLetters = String.valueOf(fieldCardHolder.getValue());
-        return LatinLetters;
-    }
     public static PayPage setCyrilicLetters() {
+        fieldCardHolder.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         fieldCardHolder.setValue(DataHelper.cyrillicLetters());
         return new PayPage();
-    }
-
-    public static String getCyrilicLetters() {
-        String CyrilicLetters = String.valueOf(fieldCardHolder.getValue());
-        return CyrilicLetters;
     }
 }

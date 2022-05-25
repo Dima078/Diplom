@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
+import ru.netology.data.Database;
 import ru.netology.pageObjects.HeaderPage;
 import ru.netology.pageObjects.PayPage;
 
@@ -34,17 +35,18 @@ public class ValidationCardHolderTest {
     }
 
     @Test
-    public void shouldEnterValidName() {
-        PayPage.setLatinLetters();
-        String actualContentsField = PayPage.getLatinLetters();
-        assertEquals("DIMA DIMOV", actualContentsField);
+    public void shouldEnterLatinName() {
+        PayPage.getApprovedCard();
+        PayPage.checkNotificationTitleOk();
+        Database.checkApprovedBuy();
     }
 
     @Test
     public void shouldEnterCyrillicName() {
+        PayPage.getApprovedCard();
         PayPage.setCyrilicLetters();
-        String actualContentsField = PayPage.getCyrilicLetters();
-        assertEquals("", actualContentsField);
+        PayPage.clickNext();
+        PayPage.checkNotificationTitleError();
     }
 
     /*@Test

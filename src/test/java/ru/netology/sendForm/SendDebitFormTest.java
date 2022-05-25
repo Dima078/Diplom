@@ -33,20 +33,25 @@ public class SendDebitFormTest {
     @Test
     public void shouldBuyApprovedCard() {
         PayPage.getApprovedCard();
+        PayPage.clickNext();
         PayPage.checkNotificationTitleOk();
         Database.checkApprovedBuy();
     }
 
     @Test
     public void shouldBuyDeclinedCard() {
+        PayPage.getApprovedCard();
         PayPage.getDeclinedCard();
+        PayPage.clickNext();
         PayPage.checkNotificationTitleError();
         Database.checkDeclinedBuy();
     }
 
     @Test
     public void shouldBuyNotTestCard() {
+        PayPage.getApprovedCard();
         PayPage.getNotTestCard();
+        PayPage.clickNext();
         PayPage.checkNotificationTitleError();
     }
 
@@ -62,7 +67,9 @@ public class SendDebitFormTest {
 
     @Test
     public void shouldClosedNotificationContentError() {
+        PayPage.getApprovedCard();
         PayPage.getNotTestCard();
+        PayPage.clickNext();
         PayPage.checkNotificationTitleError();
         PayPage.closeNotificationContentError();
         PayPage.checkNotificationTitleOk();
@@ -72,6 +79,7 @@ public class SendDebitFormTest {
     public void shouldCheckingMessagesErrors() {
         PayPage.clickNext();
         PayPage.getApprovedCard();
+        PayPage.clickNext();
         PayPage.checkNotificationTitleOk();
         PayPage.checkCardNumber();
         PayPage.checkCardHolderEmpty();
