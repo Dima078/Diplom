@@ -13,8 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @UtilityClass
 public class Database {
 
+    private static String url = System.getProperty("url");
+    private static String user = System.getProperty("user");
+    private static String pass = System.getProperty("pass");
+
     private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "dima", "pass");
+        return DriverManager.getConnection(url, user, pass);
     }
 
     @SneakyThrows
