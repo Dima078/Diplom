@@ -2,19 +2,24 @@
 
 > docker-compose up
 
-# запуск jar файла
+# запуск приложения
+### с подключением MySQL
+>java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aqa-shop.jar
 
->java -jar artifacts/aqa-shop.jar
+### с подключением PostgreSQL
+>java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar
 
 # запустить тесты с отчетом Allure
 
-> ./gradlew clean test allureReport
+> ./gradlew clean test -Durl=jdbc:mysql://localhost:3306/app
 
 # запустить просмотр отчета Allure
 
-> ./gradlew allureServe
+> ./gradlew allureReport
 
-> ./gradlew test -Dspring.datasource.url=jdbc:mysql://localhost:3306/app
+> затем
+
+> ./gradlew allureServe
 
 
 # Для подключение к базе вручную использовать команду
