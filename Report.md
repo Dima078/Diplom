@@ -20,3 +20,7 @@
 Приложение к эксплуатации **не готово**. Необходимо исправить критические и значительные баги
 https://github.com/Dima078/Diplom/issues
 ## 5. AllureReport
+![](https://github.com/Dima078/Diplom/blob/master/AllureReport/Graphs.png)
+![](https://github.com/Dima078/Diplom/blob/master/AllureReport/Overview.png)
+![](https://github.com/Dima078/Diplom/blob/master/AllureReport/Packages.png)
+![](https://github.com/Dima078/Diplom/blob/master/AllureReport/Suites.png)
