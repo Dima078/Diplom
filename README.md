@@ -9,7 +9,7 @@
 ### с подключением PostgreSQL
 >java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar
 
-# запустить тесты с отчетом Allure
+# запуск тестов
 
 > ./gradlew clean test -Durl=jdbc:mysql://localhost:3306/app
 
