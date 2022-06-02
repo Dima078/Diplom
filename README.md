@@ -7,7 +7,8 @@
 >java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aqa-shop.jar
 
 ### с подключением PostgreSQL
->java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar
+>java -jar .\artifacts\aqa-shop.jar "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app"
+
 
 # запуск тестов
 ### с подключением MySQL
